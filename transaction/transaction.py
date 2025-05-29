@@ -9,8 +9,6 @@ from utils import apply_diff_operations, DiffOperations
 from enum import Enum
 import uuid
 
-
-
 # READ_UNCOMMITTED and READ_COMMITTED are used for read-mode only
 class IsolationLevel(Enum):
     READ_UNCOMMITTED = "READ_UNCOMMITTED"  # allows dirty reads (may see changes that get rolled back), fastest but least safe
@@ -120,7 +118,6 @@ class Transaction:
     # TODO: move to decorator 
     def _validate_txn_is_active(self):
         if not self._is_active:
-            self._end_transaction(TransactionStatus.FAILED)
             raise RuntimeError(f"Transaction {self.txn_id} is not active")
     
     def _commit_file_changes(self, commit_time: datetime):
@@ -150,7 +147,7 @@ class Transaction:
             self._end_transaction(TransactionStatus.ROLLED_BACK)
         except Exception as e:
             # Locks will still be released on ROLLBACK_FAILED; this may allow other threads to encounter inconsistent state.
-            # Optimization: use an atomic commit protocol to ensure durability and consistency guarantees.
+            # Optimization: keep rollback-failed files locked, add an atomic commit protocol to ensure durability and consistency guarantees.
             self._end_transaction(TransactionStatus.ROLLBACK_FAILED)
             raise RuntimeError(f"Critical error: Failed to rollback transaction {self.txn_id}: {str(e)}")
     
