@@ -32,7 +32,7 @@ A Python implementation of an in-memory file system with ACI transaction support
 
 ### Console (run main.py)
 
-# Create and organize files
+### Create and organize files
 ```bash
 /> mkdir documents
 /> cd documents
@@ -50,7 +50,7 @@ documents
 final_report.txt
 ```
 
-# Start transaction and modify files
+### Start transaction and modify files
 ```bash
 # Start a transaction and modify a file
 /> touch data.txt
@@ -70,7 +70,7 @@ Transaction committed: txn-123
 Hello World
 ```
 
-# Start two concurrent transactions
+### Start two concurrent transactions
 ```bash
 # Two transactions with different isolation levels
 /> touch shared.txt

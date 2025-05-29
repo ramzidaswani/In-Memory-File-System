@@ -1,5 +1,7 @@
 from typing import Dict
-from file_system import FileSystem, File, Transaction, IsolationLevel
+from filesystem.file_system import FileSystem, File
+from transaction import Transaction, IsolationLevel
+from filesystem.file_system import FileSystem, File
 
 class Console:
     def __init__(self):

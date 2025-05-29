@@ -1,11 +1,10 @@
 from __future__ import annotations
 from typing import Optional, List, Dict
-from file_lock_manager import FileLockManager
-from transaction_manager import TransactionManager, TransactionData
-from file_lock_manager import FileLockManager
-from file_object import FileObject
+from datastore.file_lock_manager import FileLockManager
+from transaction import TransactionManager, TransactionData, Transaction, IsolationLevel
+from datastore.file_lock_manager import FileLockManager
+from datastore.file_object import FileObject
 from diff_operations import get_diff_operations
-from transaction import Transaction, IsolationLevel
 from contextlib import contextmanager
 
 # TODO: add locking for concurrent file system access (currently only transactions support concurrency)

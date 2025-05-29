@@ -1,12 +1,15 @@
 from typing import Dict, List
 from dataclasses import dataclass
-from file_object import FileObject
+from datastore.file_object import FileObject
 from datetime import datetime, timezone
-from transaction_manager import TransactionManager, TransactionStatus
-from file_lock_manager import FileLockManager, LockType
+from .transaction_manager import TransactionManager, TransactionStatus
+from datastore.file_lock_manager import FileLockManager, LockType
+from datastore.file_object import FileObject
 from diff_operations import apply_diff_operations, DiffOperations
 from enum import Enum
 import uuid
+
+
 
 # READ_UNCOMMITTED and READ_COMMITTED are used for read-mode only
 class IsolationLevel(Enum):
