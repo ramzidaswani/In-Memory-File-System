@@ -13,7 +13,7 @@ import uuid
 
 # READ_UNCOMMITTED and READ_COMMITTED are used for read-mode only
 class IsolationLevel(Enum):
-    READ_UNCOMMITTED = "READ_UNCOMMITTED"  # allows dirty reads, fastest but least safe 
+    READ_UNCOMMITTED = "READ_UNCOMMITTED"  # allows dirty reads (may see changes that get rolled back), fastest but least safe
     READ_COMMITTED = "READ_COMMITTED"      # prevents dirty reads, sees only committed changes, may see different values during transaction
     SNAPSHOT = "SNAPSHOT"                  # provides consistent view of all files at transaction start time, prevents phantom reads
 

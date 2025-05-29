@@ -7,7 +7,7 @@ A Python implementation of an in-memory file system with ACI transaction support
 ## Key Features
 
 - **Transactional Operations**: Full rollback support with atomicity guarantees
-- **Multiple Isolation Levels**: READ_UNCOMMITTED, READ_COMMITTED, and SNAPSHOT isolation
+- **Multiple Isolation Levels**: READ_COMMITTED, READ_UNCOMMITTED, and SNAPSHOT isolation
 - **Concurrent Access Control**: Shared/exclusive locking (with some deadlock prevention)
 - **Version Management**: Efficient diff-based storage for file changes
 - **Interactive Console**: Command-line interface for testing and demonstration
@@ -70,7 +70,7 @@ Transaction committed: txn-123
 Hello World
 ```
 
-### Start two concurrent transactions
+### Start two transactions in different isolation levels
 ```bash
 # Two transactions with different isolation levels
 /> touch shared.txt
@@ -98,4 +98,49 @@ Version1
 # READ_COMMITTED sees new version
 /> read shared.txt --txn txn-456
 Version 2
+```
+### Start two concurrent transactions
+```bash
+# Concurrent transactions with isolation
+/> touch account.txt
+/> open account.txt
+Opened: account.txt
+/> write account.txt $1000
+Content written
+
+# Start two concurrent transactions
+/> txn_start SNAPSHOT
+Transaction started: txn-A
+/> txn_start SNAPSHOT
+Transaction started: txn-B
+
+# Both transactions write different values
+/> write account.txt $500 --txn txn-A
+Content written
+/> write account.txt $2000 --txn txn-B
+Content written
+
+# Each sees only their own changes
+/> read account.txt --txn txn-A
+$500
+/> read account.txt --txn txn-B
+$2000
+/> read account.txt
+$1000
+
+# Transaction A commits
+/> txn_commit txn-A
+Transaction committed: txn-A
+
+# Transaction B still isolated from A's commit
+/> read account.txt --txn txn-B
+$2000
+/> read account.txt
+$500
+
+# Transaction B commits (last writer wins)
+/> txn_commit txn-B
+Transaction committed: txn-B
+/> read account.txt
+$2000
 ```
