@@ -44,10 +44,15 @@ Content written
 /documents> read report.txt
 Project Status: Complete
 /documents> cd ..
-/> mv documents/report.txt final_report.txt
+/> mkdir backup
+/> cd documents
+/documents> mv report.txt /backup
+/documents> cd ..
 /> ls
+backup
 documents
-final_report.txt
+/> ls backup
+report.txt
 ```
 
 ### Start transaction and modify files
