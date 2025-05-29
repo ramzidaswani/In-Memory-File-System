@@ -4,7 +4,7 @@ from datastore.file_lock_manager import FileLockManager
 from transaction import TransactionManager, TransactionData, Transaction, IsolationLevel
 from datastore.file_lock_manager import FileLockManager
 from datastore.file_object import FileObject
-from diff_operations import get_diff_operations
+from utils import get_diff_operations
 from contextlib import contextmanager
 
 # TODO: add locking for concurrent file system access (currently only transactions support concurrency)

@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from .transaction_manager import TransactionManager, TransactionStatus
 from datastore.file_lock_manager import FileLockManager, LockType
 from datastore.file_object import FileObject
-from diff_operations import apply_diff_operations, DiffOperations
+from utils import apply_diff_operations, DiffOperations
 from enum import Enum
 import uuid
 

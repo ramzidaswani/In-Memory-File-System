@@ -3,7 +3,7 @@ from typing import List
 from dataclasses import dataclass
 import uuid
 from datetime import datetime
-from diff_operations import get_diff_operations, apply_diff_operations, DiffOperations
+from utils import get_diff_operations, apply_diff_operations, DiffOperations
 
 @dataclass
 class FileVersion:
